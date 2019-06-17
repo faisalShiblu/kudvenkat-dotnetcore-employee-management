@@ -5,28 +5,20 @@
 }
 
 
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Department</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var employee in Model)
-        {
-            <tr>
-                <td>
-                    @employee.Id
-                </td>
-                <td>
-                    @employee.Name
-                </td>
-                <td>
-                    @employee.Department
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="card-deck">
+    @foreach (var employee in Model)
+    {
+    <div class="card m-3">
+        <div class="card-header">
+            <h3>@employee.Name</h3>
+        </div>
+        <img src="~/images/dd.jpg" asp-append-version="true" class="card-img-top" />
+        <div class="card-footer text-center">
+            <a asp-controller="home" asp-action="details"
+               asp-route-id="@employee.Id" class="btn btn-primary m-1">View</a>
+            <a href="#" class="btn btn-primary m-1">Edit</a>
+            <a href="#" class="btn btn-danger m-1">Delete</a>
+        </div>
+    </div>
+    }
+</div>
