@@ -1,12 +1,14 @@
-﻿using System;
+﻿using EmployeeManagement.Models;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace EmployeeManagement.Models
+namespace EmployeeManagement.ViewModels
 {
-    public class Employee
+    public class EmployeeCreateViewModel
     {
         public int Id { get; set; }
 
@@ -22,6 +24,7 @@ namespace EmployeeManagement.Models
         [Required]
         public Dept? Department { get; set; }
 
-        public string PhotoPath { get; set; }
+        //public IFormFile Photo { get; set; }
+        public List<IFormFile> Photos { get; set; }
     }
 }
