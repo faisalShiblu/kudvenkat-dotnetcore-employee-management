@@ -10,7 +10,7 @@ namespace EmployeeManagement.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IEmployeeRepository _employeeRepository;
+        private IEmployeeRepository _employeeRepository;
 
         public HomeController(IEmployeeRepository employeeRepository)
         {
@@ -23,16 +23,35 @@ namespace EmployeeManagement.Controllers
             return View(model);
         }
 
-        public ViewResult Details(int id)
+        public ViewResult Details(int? id)
         {
             HomeDetailsViewModel homeDetailsViewModel = new HomeDetailsViewModel()
             {
-                Employee = _employeeRepository.GetEmployee(id),
+                Employee = _employeeRepository.GetEmployee(id ?? 1),
                 PageTitle = "Employee Details"
             };
 
             // Pass the ViewModel object to the View() helper method
             return View(homeDetailsViewModel);
         }
+
+        [HttpGet]
+        public ViewResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(Employee employee)
+        {
+            if (ModelState.IsValid)
+            {
+                Employee newEmployee = _employeeRepository.Add(employee);
+                return RedirectToAction("details", new { id = newEmployee.Id });
+            }
+
+            return View();
+        }
+
     }
 }
