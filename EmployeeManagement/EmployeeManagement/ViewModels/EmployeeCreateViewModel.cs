@@ -10,8 +10,6 @@ namespace EmployeeManagement.ViewModels
 {
     public class EmployeeCreateViewModel
     {
-        public int Id { get; set; }
-
         [Required, MaxLength(50, ErrorMessage = "Name cannot exceed 50 characters")]
         public string Name { get; set; }
 
@@ -24,7 +22,7 @@ namespace EmployeeManagement.ViewModels
         [Required]
         public Dept? Department { get; set; }
 
-        //public IFormFile Photo { get; set; }
-        public List<IFormFile> Photos { get; set; }
+        public IFormFile Photo { get; set; }
+        //public List<IFormFile> Photos { get; set; }
     }
 }
