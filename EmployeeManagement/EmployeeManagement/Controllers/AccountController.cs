@@ -79,7 +79,11 @@ namespace EmployeeManagement.Controllers
         [AllowAnonymous]
         public IActionResult Login(string returnUrl)
         {
-            return LocalRedirect(returnUrl);
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+            {
+                return LocalRedirect(returnUrl);
+            }
+            return View();
         }
 
         [HttpPost]
