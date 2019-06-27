@@ -16,6 +16,8 @@ namespace EmployeeManagement.ViewModels
         [ValidEmailDomain(allowedDomain: "gmail.com", ErrorMessage = "Email domain must be gmail.com")]
         public string Email { get; set; }
 
+        public string City { get; set; }
+
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
