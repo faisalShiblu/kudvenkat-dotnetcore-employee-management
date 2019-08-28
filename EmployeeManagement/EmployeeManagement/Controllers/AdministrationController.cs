@@ -138,6 +138,7 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> EditRole(string id)
         {
             // Find the role by Role ID
@@ -171,6 +172,7 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
             var role = await _roleManager.FindByIdAsync(model.Id);
