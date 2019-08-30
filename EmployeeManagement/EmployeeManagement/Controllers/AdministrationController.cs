@@ -491,5 +491,12 @@ namespace EmployeeManagement.Controllers
                 return View("ListUsers");
             }
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
