@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 
 namespace EmployeeManagement.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Policy = "AdminRolePolicy")]
     public class AdministrationController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -138,10 +138,8 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpGet]
-        [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> EditRole(string id)
         {
-            // Find the role by Role ID
             var role = await _roleManager.FindByIdAsync(id);
 
             if (role == null)
@@ -156,12 +154,8 @@ namespace EmployeeManagement.Controllers
                 RoleName = role.Name
             };
 
-            // Retrieve all the Users
             foreach (var user in _userManager.Users)
             {
-                // If the user is in this role, add the username to
-                // Users property of EditRoleViewModel. This model
-                // object is then passed to the view for display
                 if (await _userManager.IsInRoleAsync(user, role.Name))
                 {
                     model.Users.Add(user.UserName);
@@ -172,7 +166,6 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> EditRole(EditRoleViewModel model)
         {
             var role = await _roleManager.FindByIdAsync(model.Id);
@@ -186,7 +179,6 @@ namespace EmployeeManagement.Controllers
             {
                 role.Name = model.RoleName;
 
-                // Update the Role using UpdateAsync
                 var result = await _roleManager.UpdateAsync(role);
 
                 if (result.Succeeded)
@@ -326,6 +318,7 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> ManageUserRoles(string userId)
         {
             ViewBag.userId = userId;
@@ -364,6 +357,7 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "EditRolePolicy")]
         public async Task<IActionResult> ManageUserRoles(List<UserRolesViewModel> model, string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
