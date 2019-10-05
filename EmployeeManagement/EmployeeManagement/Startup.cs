@@ -42,11 +42,17 @@ namespace EmployeeManagement
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
 
-            services.AddAuthentication().AddGoogle(options =>
-            {
-                options.ClientId = "945053726546-41ep5ao3s2fmdrna6i9h2naosge4dphs.apps.googleusercontent.com";
-                options.ClientSecret = "UCuLkRVYj0RVMa8GECiEF1U-";
-            });
+            services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = "945053726546-41ep5ao3s2fmdrna6i9h2naosge4dphs.apps.googleusercontent.com";
+                    options.ClientSecret = "UCuLkRVYj0RVMa8GECiEF1U-";
+                })
+                .AddFacebook(options =>
+                {
+                    options.ClientId = "366058544275579";
+                    options.ClientSecret = "1b1b6a26fb18ad144cc2b17951765065";
+                });
 
             services.ConfigureApplicationCookie(options =>
             {
